@@ -4,4 +4,5 @@ public class Effect
 	public int Modifier;
 	public float Duration;
 	public bool Instant;
+	public bool buff;
 }

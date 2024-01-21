@@ -19,13 +19,13 @@ public partial class ZombieBase : EntityBase
 	
 	protected override void Initialize()
 	{
+		EntityType = EntityTag.Zombie;
 		_InitializeWeapon();
 		deceleration = 15;
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-		
 		if(@event.IsActionPressed("secondary_button"))
 		{
 			RallyPoint = GetGlobalMousePosition();

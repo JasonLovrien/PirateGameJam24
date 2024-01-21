@@ -11,6 +11,7 @@ public partial class Adversary : EntityBase
 
 	protected override void Initialize()
 	{
+		EntityType = EntityTag.Adversary;
 		BaseStats[Stat.Speed] = 350;
 		InitializeVision();
 		InitializeAttack();

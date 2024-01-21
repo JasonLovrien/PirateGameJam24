@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public partial class Player : EntityBase
@@ -8,7 +9,19 @@ public partial class Player : EntityBase
 
 	protected override void Initialize()
 	{
+		EntityType = EntityTag.Player;
 		return;
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if(@event.IsActionPressed("primary_button"))
+		{
+
+		} else if(@event.IsActionReleased(""))
+		{
+
+		}
 	}
 	
 	protected override Vector2 GetNormalizedMovementDirection()
@@ -19,6 +32,16 @@ public partial class Player : EntityBase
 
 	public override void ApplyEffect(Effect effect)
 	{
-		throw new NotImplementedException();
+		//If the effect is damage, subtract it from shield before focusing on current health
+		if(effect.EffectedStat.Equals(Stat.CurrentHealth) && effect.Modifier < 0 && BaseStats[Stat.Shield] > 0)
+		{
+			BaseStats[Stat.Shield] -= effect.Modifier;
+			effect.Modifier = BaseStats[Stat.Shield];
+			if(BaseStats[Stat.Shield] < 0){
+				BaseStats[Stat.Shield] = 0;
+			}
+		}
+
+		base.ApplyEffect(effect);
 	}
 }

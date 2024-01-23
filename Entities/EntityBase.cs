@@ -48,7 +48,7 @@ public abstract partial class EntityBase : CharacterBody2D
 	};
 	protected Dictionary<Stat, int> ModifierStats = new Dictionary<Stat, int>();
 	protected List<Timer> EffectTimers;
-	protected EntityTag EntityType;
+	public EntityTag EntityType;
 
 	protected AnimatedSprite2D AnimatedSprite;
 	protected AnimationState CurrentState;

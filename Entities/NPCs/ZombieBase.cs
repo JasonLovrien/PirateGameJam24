@@ -69,7 +69,7 @@ public partial class ZombieBase : EntityBase
 	
 	private void Attack(Adversary body) {
 		CurrentState = AnimationState.Idle;
-		weapon.Attack(body);
+		weapon.Attack(body.GlobalPosition);
 	}
 
 	private void EndAttack() {

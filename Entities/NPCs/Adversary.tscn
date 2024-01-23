@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Entities/NPCs/Adversary.cs" id="1_n6pmd"]
 [ext_resource type="Texture2D" uid="uid://dlsdkuwvtp5cd" path="res://Assets/Sprites/sprite-02b_people.png" id="2_f372n"]
 [ext_resource type="PackedScene" uid="uid://db7n8kgqn4mm4" path="res://Entities/NPCs/Skillshot/Skillshot.tscn" id="4_h5vix"]
-[ext_resource type="Texture2D" uid="uid://d25sysv12khp7" path="res://Assets/Sprites/DO NOT USE IN FINAL GAME.png" id="5_bkhsy"]
+[ext_resource type="Texture2D" uid="uid://vl76a0wddtup" path="res://Assets/Sprites/DO NOT USE IN FINAL GAME ROTATEDV2.png" id="5_mccbf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rn66t"]
 radius = 8.0
@@ -38,9 +38,8 @@ radius = 320.1
 [sub_resource type="CircleShape2D" id="CircleShape2D_phsx7"]
 radius = 88.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1urwn"]
-radius = 8.0
-height = 96.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_byxsq"]
+size = Vector2(73, 5)
 
 [node name="Adversary" type="CharacterBody2D" groups=["Enemy"]]
 script = ExtResource("1_n6pmd")
@@ -72,11 +71,11 @@ shape = SubResource("CircleShape2D_phsx7")
 [node name="WeaponHitbox" type="Area2D" parent="Skillshot"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Skillshot/WeaponHitbox"]
-position = Vector2(32, -24)
-rotation = 0.694641
-shape = SubResource("CapsuleShape2D_1urwn")
+position = Vector2(40, 0)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_byxsq")
 
 [node name="WeaponSprite" type="Sprite2D" parent="Skillshot/WeaponHitbox"]
-position = Vector2(40, -32)
-scale = Vector2(0.0791815, 0.0896624)
-texture = ExtResource("5_bkhsy")
+position = Vector2(40, 1.71688)
+scale = Vector2(0.0951463, 0.0714358)
+texture = ExtResource("5_mccbf")

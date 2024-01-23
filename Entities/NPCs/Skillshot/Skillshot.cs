@@ -52,7 +52,7 @@ public partial class Skillshot : Node2D
 		attackCooldownTimer.WaitTime = weaponCooldown;
 		attackCooldownTimer.Timeout += AttackCoolDownOver;
 
-		WeaponRangeLength = (GetNode<CollisionShape2D>("WeaponRange/CollisionShape2D").Shape as CircleShape2D).Radius;
+		WeaponRangeLength = GetRangeLength();
 		weaponHitbox.Reparent(PathProgress);
 
 		SetAttackType();
@@ -60,6 +60,13 @@ public partial class Skillshot : Node2D
 		weaponHitbox.BodyEntered += OnAttackHittingSomething;
 
 		weaponSprite.Visible = false;
+	}
+
+	private float GetRangeLength() {
+		float lengthToOuterBounds = (GetNode<CollisionShape2D>("WeaponRange/CollisionShape2D").Shape as CircleShape2D).Radius;
+		float hitboxLength = GetNode<CollisionShape2D>("WeaponHitbox/CollisionShape2D").Shape.GetRect().Size.X;
+
+		return lengthToOuterBounds - hitboxLength;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -87,9 +94,12 @@ public partial class Skillshot : Node2D
 
 	private void Stab() {
 		Vector2 directionToTarget = (Target.GlobalPosition - GlobalPosition).Normalized();
+		weaponHitbox.Rotation = directionToTarget.Angle();
+		PathProgress.Rotates = false;
 		Path.Curve.ClearPoints();
 		Path.Curve.AddPoint(Vector2.Zero);
 		Path.Curve.AddPoint(directionToTarget * WeaponRangeLength);
+		Path.Curve.AddPoint(Vector2.Zero);
 	}
 
 	private void Slash() {

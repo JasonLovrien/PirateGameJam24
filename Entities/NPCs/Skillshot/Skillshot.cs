@@ -22,6 +22,9 @@ public partial class Skillshot : Node2D
 	[Export]
 	public float weaponSpeed = 40.0f;
 
+	[Export]
+	public Godot.Collections.Array<EntityTag> TypesToAffect;
+
 	private Action AttackMethod;
 	public Timer attackAnimationTimer;
 	public Timer attackCooldownTimer;
@@ -149,7 +152,8 @@ public partial class Skillshot : Node2D
 	private bool ShouldDamage(Node2D body) {
 		return IsAttacking
 		&& body is EntityBase
-		&& !HitNodes.Contains(body);
+		&& !HitNodes.Contains(body)
+		&& TypesToAffect.Contains((body as EntityBase).EntityType);
 	}
 
 	private void AttackCoolDownOver() {

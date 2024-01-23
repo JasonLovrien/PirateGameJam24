@@ -62,6 +62,7 @@ shape = SubResource("CircleShape2D_no0yu")
 weaponDamage = 15
 weaponCooldown = 1.5
 weaponSpeed = 300.0
+TypesToAffect = Array[int]([0, 1])
 
 [node name="Range" type="CollisionShape2D" parent="Skillshot"]
 shape = SubResource("CircleShape2D_phsx7")

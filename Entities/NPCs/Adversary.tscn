@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://k0opnubkx8m7"]
+[gd_scene load_steps=11 format=3 uid="uid://k0opnubkx8m7"]
 
 [ext_resource type="Texture2D" uid="uid://rrhkg5xo5rfu" path="res://Assets/Sprites/sprite-02a_people.png" id="1_8a6o5"]
 [ext_resource type="Script" path="res://Entities/NPCs/Adversary.cs" id="1_n6pmd"]
 [ext_resource type="Texture2D" uid="uid://dlsdkuwvtp5cd" path="res://Assets/Sprites/sprite-02b_people.png" id="2_f372n"]
+[ext_resource type="PackedScene" uid="uid://db7n8kgqn4mm4" path="res://Entities/NPCs/Skillshot/Skillshot.tscn" id="4_h5vix"]
+[ext_resource type="Texture2D" uid="uid://d25sysv12khp7" path="res://Assets/Sprites/DO NOT USE IN FINAL GAME.png" id="5_bkhsy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rn66t"]
 radius = 8.0
@@ -33,8 +35,12 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_no0yu"]
 radius = 320.1
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cfdvt"]
-radius = 64.4981
+[sub_resource type="CircleShape2D" id="CircleShape2D_phsx7"]
+radius = 88.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1urwn"]
+radius = 8.0
+height = 96.0
 
 [node name="Adversary" type="CharacterBody2D" groups=["Enemy"]]
 script = ExtResource("1_n6pmd")
@@ -53,7 +59,24 @@ animation = &"Idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionRange"]
 shape = SubResource("CircleShape2D_no0yu")
 
-[node name="AttackRange" type="Area2D" parent="."]
+[node name="Skillshot" parent="." instance=ExtResource("4_h5vix")]
+weaponDamage = 15
+weaponCooldown = 1.5
+weaponSpeed = 300.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
-shape = SubResource("CircleShape2D_cfdvt")
+[node name="WeaponRange" type="Area2D" parent="Skillshot"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Skillshot/WeaponRange"]
+shape = SubResource("CircleShape2D_phsx7")
+
+[node name="WeaponHitbox" type="Area2D" parent="Skillshot"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Skillshot/WeaponHitbox"]
+position = Vector2(32, -24)
+rotation = 0.694641
+shape = SubResource("CapsuleShape2D_1urwn")
+
+[node name="WeaponSprite" type="Sprite2D" parent="Skillshot/WeaponHitbox"]
+position = Vector2(40, -32)
+scale = Vector2(0.0791815, 0.0896624)
+texture = ExtResource("5_bkhsy")

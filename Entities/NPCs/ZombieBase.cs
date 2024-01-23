@@ -33,15 +33,6 @@ public partial class ZombieBase : EntityBase
 		}
 	}
 
-	private void OnBodyEnteringWeaponRange(Node2D body) {
-		if(!(body is EntityBase) || !body.IsInGroup("Enemy") || weapon.IsWeaponOnCooldown) {
-			return;
-		}
-		
-		target = body as Adversary;
-		Attack((Adversary)body);
-	}
-
 	protected override Vector2 GetNormalizedMovementDirection()
 	{
 		Vector2 vectorToRallyPoint = RallyPoint-GlobalPosition;
@@ -64,6 +55,15 @@ public partial class ZombieBase : EntityBase
 		weapon = GetNode<Skillshot>("Skillshot");
 		weapon.weaponRange.BodyEntered += OnBodyEnteringWeaponRange;
 		weapon.attackCooldownTimer.Timeout += EndAttack;
+	}
+
+	private void OnBodyEnteringWeaponRange(Node2D body) {
+		if(!(body is EntityBase) || !body.IsInGroup("Enemy") || weapon.IsWeaponOnCooldown) {
+			return;
+		}
+		
+		target = body as Adversary;
+		Attack((Adversary)body);
 	}
 
 	

@@ -104,6 +104,11 @@ public partial class Skillshot : Node2D
 		IsWeaponOnCooldown = true;
 
 		AttackMethod();
+
+		if(weaponRange.OverlapsBody(target)){
+			OnAttackHittingSomething(target);
+		}
+
 		attackCooldownTimer.Start();
 	}
 

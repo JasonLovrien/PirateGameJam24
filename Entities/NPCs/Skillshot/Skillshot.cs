@@ -42,12 +42,10 @@ public partial class Skillshot : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		weaponHitbox = GetNode<Area2D>("Path2D/PathFollow2D/HitboxContainer");
-		weaponRange = GetNode<Area2D>("RangeContainer");
-		MoveExternalChildNodesToAreas();
+		InitializeContainerNodes();
+		MoveExternalChildNodesToContainers();
+		InitializeSprite();
 		
-		weaponSprite = GetNode<Sprite2D>("Path2D/PathFollow2D/HitboxContainer/Sprite");
-		weaponSprite.Visible = false;
 		
 		Path = GetNode<Path2D>("Path2D");
 		PathProgress = GetNode<PathFollow2D>("Path2D/PathFollow2D");
@@ -63,10 +61,20 @@ public partial class Skillshot : Node2D
 		weaponHitbox.BodyEntered += OnAttackHittingSomething;
 	}
 	
-	private void MoveExternalChildNodesToAreas(){
+	private void InitializeContainerNodes() {
+		weaponHitbox = GetNode<Area2D>("Path2D/PathFollow2D/HitboxContainer");
+		weaponRange = GetNode<Area2D>("RangeContainer");
+	}
+	
+	private void MoveExternalChildNodesToContainers() {
 		GetNode("Hitbox").Reparent(weaponHitbox);
 		GetNode("Sprite").Reparent(weaponHitbox);
 		GetNode("Range").Reparent(weaponRange);
+	}
+	
+	private void InitializeSprite() {
+		weaponSprite = GetNode<Sprite2D>("Path2D/PathFollow2D/HitboxContainer/Sprite");
+		weaponSprite.Visible = false;
 	}
 
 	private float GetRangeLength() {

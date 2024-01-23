@@ -1,8 +1,13 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class Adversary : EntityBase
 {
+	[Export]
+	private string ZombiePath;
+	[Export]
+	private int PercentZombieSpawn;
 	public PathNode NextPathNode;
 
 	private EntityBase target = null;
@@ -63,7 +68,6 @@ public partial class Adversary : EntityBase
 		target = body as EntityBase;
 		Attack(target);
 	}
-
 	
 	private void Attack(EntityBase body) {
 		CurrentState = AnimationState.Idle;
@@ -85,8 +89,18 @@ public partial class Adversary : EntityBase
 		return (target == null || entity is Player) && !entity.IsInGroup("Enemy");
 	}
 
-	public override void ApplyEffect(Effect effect)
-	{
-		throw new NotImplementedException();
-	}
+    protected override void Die()
+    {
+		GD.Print("in here!");
+		Random Rand = new Random();
+		int RandNum = Rand.Next(100);
+		GD.Print("rand: ", RandNum);
+		if(RandNum <= PercentZombieSpawn)
+		{
+			GD.Print("in here!");
+			Node Zombie = ResourceLoader.Load<PackedScene>(ZombiePath).Instantiate();
+			GetParent().AddChild(Zombie);
+		}
+        base.Die();
+    }
 }

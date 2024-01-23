@@ -7,8 +7,6 @@ public partial class Adversary : EntityBase
 
 	private EntityBase target = null;
 
-	private int WeaponDamage = 15;
-
 	protected override void Initialize()
 	{
 		EntityType = EntityTag.Adversary;
@@ -61,7 +59,7 @@ public partial class Adversary : EntityBase
 	}
 
 	private void Attack(EntityBase entity) {
-		entity.Damage(WeaponDamage);
+		entity.Damage(1);
 	}
 
 	private bool ShouldSwitchTargets(EntityBase entity) {

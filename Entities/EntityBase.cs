@@ -95,9 +95,9 @@ public abstract partial class EntityBase : CharacterBody2D
 		} else
 		{
 			ModifierStats[effect.EffectedStat] += effect.Modifier;
-            Timer EffectTimer = new Timer
-            {
-                OneShot = true,
+			Timer EffectTimer = new Timer
+			{
+				OneShot = true,
 				WaitTime = effect.Duration
 			};
 			EffectTimer.Timeout += ()=> {

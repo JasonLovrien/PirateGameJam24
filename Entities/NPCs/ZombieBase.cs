@@ -81,9 +81,4 @@ public partial class ZombieBase : EntityBase
 	private bool HasValidTarget() {
 		return IsInstanceValid(target) && weapon.weaponRange.OverlapsBody(target);
 	}
-
-	public override void ApplyEffect(Effect effect)
-	{
-		throw new NotImplementedException();
-	}
 }

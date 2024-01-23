@@ -10,10 +10,12 @@ public enum SpellState
 
 public abstract partial class Spell : Node
 {
+	[Export]
+	protected int ManaCost;
 	protected List<Effect> SpellEffects;
 	[Export]
 	protected EntityBase Caster;
-	protected List<EntityBase> AffectedEntities;
+	protected List<EntityTag> AffectedEntities;
 	[Export]
 	protected AnimatedSprite2D SpellAnimation;
 	[Export]

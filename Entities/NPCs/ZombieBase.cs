@@ -10,7 +10,7 @@ public partial class ZombieBase : EntityBase
 	private bool IsForceMove = false;
 	
 	private Adversary target;
-	private Weapon weapon;
+	private Skillshot weapon;
 
 	public void SetThreshhold(float amount)
 	{
@@ -61,7 +61,7 @@ public partial class ZombieBase : EntityBase
 	}
 	
 	private void InitializeWeapon() {
-		weapon = GetNode<Weapon>("Weapon");
+		weapon = GetNode<Skillshot>("Skillshot");
 		weapon.weaponRange.BodyEntered += OnBodyEnteringWeaponRange;
 		weapon.attackCooldownTimer.Timeout += EndAttack;
 	}

@@ -66,6 +66,7 @@ public abstract partial class EntityBase : CharacterBody2D
 	public override void _Ready()
 	{
 		AnimatedSprite = GetNode<AnimatedSprite2D>("Animation");
+		EffectTimers = [];
 		Initialize();
 	}
 
@@ -111,9 +112,8 @@ public abstract partial class EntityBase : CharacterBody2D
 
 	protected virtual void Die()
 	{
-		//does this destroy timer?
 		foreach(Timer timer in EffectTimers){
-			timer.Stop();
+			timer.QueueFree();
 		}
 		QueueFree();
 	}

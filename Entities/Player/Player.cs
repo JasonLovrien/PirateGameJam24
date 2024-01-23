@@ -17,10 +17,7 @@ public partial class Player : EntityBase
 	{
 		if(@event.IsActionPressed("primary_button"))
 		{
-
-		} else if(@event.IsActionReleased(""))
-		{
-
+			return; // TODO add attack
 		}
 	}
 	

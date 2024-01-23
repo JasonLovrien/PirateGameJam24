@@ -21,7 +21,7 @@ public partial class Adversary : EntityBase
 	{
 		if(IsInstanceValid(target)) {
 			Vector2 vectorToTarget = target.GlobalPosition - GlobalPosition;
-			return vectorToTarget.Length() < 5 ? Vector2.Zero : vectorToTarget.Normalized();
+			return vectorToTarget.Length() < 40 ? Vector2.Zero : vectorToTarget.Normalized();
 		}
 
 		if((NextPathNode.GlobalPosition - GlobalPosition).Length() < 5) {
@@ -67,7 +67,7 @@ public partial class Adversary : EntityBase
 	
 	private void Attack(EntityBase body) {
 		CurrentState = AnimationState.Idle;
-		weapon.Attack(body);
+		weapon.Attack(body.GlobalPosition);
 	}
 
 	private void EndAttack() {

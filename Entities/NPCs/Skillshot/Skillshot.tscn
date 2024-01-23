@@ -3,9 +3,12 @@
 [ext_resource type="Script" path="res://Entities/NPCs/Skillshot/Skillshot.cs" id="1_ok6qr"]
 
 [sub_resource type="Curve2D" id="Curve2D_tmxwq"]
+resource_local_to_scene = true
 
 [node name="Skillshot" type="Node2D"]
 script = ExtResource("1_ok6qr")
+
+[node name="RangeContainer" type="Area2D" parent="."]
 
 [node name="AttackAnimationTimer" type="Timer" parent="."]
 one_shot = true
@@ -19,3 +22,5 @@ curve = SubResource("Curve2D_tmxwq")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 loop = false
+
+[node name="HitboxContainer" type="Area2D" parent="Path2D/PathFollow2D"]

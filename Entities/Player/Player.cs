@@ -7,9 +7,12 @@ public partial class Player : EntityBase
 {
 	private List<Spell> AbilityList;
 
+	private Skillshot skillShot;
+
 	protected override void Initialize()
 	{
 		EntityType = EntityTag.Player;
+		skillShot = GetNode<Skillshot>("Skillshot");
 		return;
 	}
 
@@ -17,7 +20,7 @@ public partial class Player : EntityBase
 	{
 		if(@event.IsActionPressed("primary_button"))
 		{
-			return; // TODO add attack
+			Attack();
 		}
 	}
 	
@@ -25,6 +28,12 @@ public partial class Player : EntityBase
 	{
 		Vector2 direction = Input.GetVector("left", "right", "up", "down");
 		return direction;
+	}
+
+	private void Attack() {
+		if(!skillShot.IsWeaponOnCooldown){
+			skillShot.Attack(GetGlobalMousePosition());
+		}
 	}
 
 	public override void ApplyEffect(Effect effect)

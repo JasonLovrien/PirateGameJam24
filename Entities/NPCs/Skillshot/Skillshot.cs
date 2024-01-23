@@ -7,7 +7,7 @@ public partial class Skillshot : Node2D
 {
 	public enum AttackTypes {
 		Stab,
-		Slash
+		Projectile
 	}
 
 	[Export]
@@ -105,8 +105,8 @@ public partial class Skillshot : Node2D
 		if(AttackType == AttackTypes.Stab) {
 			AttackMethod = Stab;
 		}
-		else {
-			AttackMethod = Slash;
+		else if(AttackType == AttackTypes.Projectile) {
+			AttackMethod = Projectile;
 		}
 	}
 
@@ -120,8 +120,13 @@ public partial class Skillshot : Node2D
 		Path.Curve.AddPoint(Vector2.Zero);
 	}
 
-	private void Slash() {
-		throw new NotImplementedException();
+	private void Projectile() {
+		Vector2 directionToTarget = (Target - GlobalPosition).Normalized();
+		weaponHitbox.Rotation = directionToTarget.Angle();
+		PathProgress.Rotates = false;
+		Path.Curve.ClearPoints();
+		Path.Curve.AddPoint(Vector2.Zero);
+		Path.Curve.AddPoint(directionToTarget * WeaponRangeLength);
 	}
 
 	public void Attack(Vector2 target) {

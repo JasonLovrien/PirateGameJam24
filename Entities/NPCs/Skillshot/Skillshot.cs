@@ -28,7 +28,7 @@ public partial class Skillshot : Node2D
 	public bool IsWeaponOnCooldown = false;
 	public Area2D weaponRange;
 	private Area2D weaponHitbox;
-	private EntityBase Target;
+	private Vector2 Target;
 	private bool IsAttacking = false;
 
 	private Path2D Path;
@@ -93,7 +93,7 @@ public partial class Skillshot : Node2D
 	}
 
 	private void Stab() {
-		Vector2 directionToTarget = (Target.GlobalPosition - GlobalPosition).Normalized();
+		Vector2 directionToTarget = (Target - GlobalPosition).Normalized();
 		weaponHitbox.Rotation = directionToTarget.Angle();
 		PathProgress.Rotates = false;
 		Path.Curve.ClearPoints();
@@ -106,7 +106,7 @@ public partial class Skillshot : Node2D
 		throw new NotImplementedException();
 	}
 
-	public void Attack(EntityBase target) {
+	public void Attack(Vector2 target) {
 		Target = target;
 		weaponSprite.Visible = true;
 		HitNodes = [];
@@ -114,22 +114,27 @@ public partial class Skillshot : Node2D
 		IsWeaponOnCooldown = true;
 
 		AttackMethod();
-
-		if(weaponRange.OverlapsBody(target)){
-			OnAttackHittingSomething(target);
-		}
-
 		attackCooldownTimer.Start();
+
+		foreach(Node2D body in weaponRange.GetOverlappingBodies()){
+			OnAttackHittingSomething(body);
+		}
 	}
 
 	private void OnAttackHittingSomething(Node2D body) {
-		if(!IsAttacking || !(body is EntityBase) || HitNodes.Contains(body)) {
+		if(!ShouldDamage(body)) {
 			return;
 		}
 
 		
 		HitNodes.Add(body);
 		(body as EntityBase).Damage(weaponDamage);
+	}
+
+	private bool ShouldDamage(Node2D body) {
+		return IsAttacking
+		&& body is EntityBase
+		&& !HitNodes.Contains(body);
 	}
 
 	private void AttackCoolDownOver() {

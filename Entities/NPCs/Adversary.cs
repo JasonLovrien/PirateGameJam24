@@ -67,7 +67,7 @@ public partial class Adversary : EntityBase
 	
 	private void Attack(EntityBase body) {
 		CurrentState = AnimationState.Idle;
-		weapon.Attack(body);
+		weapon.Attack(body.GlobalPosition);
 	}
 
 	private void EndAttack() {

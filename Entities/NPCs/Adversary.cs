@@ -7,14 +7,14 @@ public partial class Adversary : EntityBase
 
 	private EntityBase target = null;
 
-	private int WeaponDamage = 15;
+	private Skillshot weapon;
 
 	protected override void Initialize()
 	{
 		EntityType = EntityTag.Adversary;
 		BaseStats[Stat.Speed] = 350;
 		InitializeVision();
-		InitializeAttack();
+		InitializeWeapon();
 	}
 	
 	protected override Vector2 GetNormalizedMovementDirection()
@@ -43,26 +43,43 @@ public partial class Adversary : EntityBase
 		visionRange.BodyEntered += OnBodyEnteringVisionRange;
 	}
 
-	private void InitializeAttack() {
-		Area2D visionRange = GetNode<Area2D>("AttackRange");
-		visionRange.BodyEntered += OnBodyEnteringWeaponRange;
-	}
-
 	private void OnBodyEnteringVisionRange(Node2D body) {
 		if(body is EntityBase && ShouldSwitchTargets(body as EntityBase)) {
 			target = body as EntityBase;
 		}
 	}
+	
+	private void InitializeWeapon() {
+		weapon = GetNode<Skillshot>("Skillshot");
+		weapon.weaponRange.BodyEntered += OnBodyEnteringWeaponRange;
+		weapon.attackCooldownTimer.Timeout += EndAttack;
+	}
 
 	private void OnBodyEnteringWeaponRange(Node2D body) {
-		if(body == target) {
-			Attack(body as EntityBase);
+		if(!(body is EntityBase) || body.IsInGroup("Enemy") || weapon.IsWeaponOnCooldown) {
+			return;
 		}
+		
+		target = body as EntityBase;
+		Attack(target);
 	}
 
-	private void Attack(EntityBase entity) {
-		entity.Damage(WeaponDamage);
+	
+	private void Attack(EntityBase body) {
+		CurrentState = AnimationState.Idle;
+		weapon.Attack(body);
 	}
+
+	private void EndAttack() {
+		if(HasValidTarget()) {
+			Attack(target);
+		}
+	}
+	
+	private bool HasValidTarget() {
+		return IsInstanceValid(target) && weapon.weaponRange.OverlapsBody(target);
+	}
+
 
 	private bool ShouldSwitchTargets(EntityBase entity) {
 		return (target == null || entity is Player) && !entity.IsInGroup("Enemy");

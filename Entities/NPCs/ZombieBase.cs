@@ -10,7 +10,7 @@ public partial class ZombieBase : EntityBase
 	private bool IsForceMove = false;
 	
 	private Adversary target;
-	private Weapon weapon;
+	private Skillshot weapon;
 
 	public void SetThreshhold(float amount)
 	{
@@ -20,7 +20,7 @@ public partial class ZombieBase : EntityBase
 	protected override void Initialize()
 	{
 		EntityType = EntityTag.Zombie;
-		_InitializeWeapon();
+		InitializeWeapon();
 		deceleration = 15;
 	}
 
@@ -31,15 +31,6 @@ public partial class ZombieBase : EntityBase
 			RallyPoint = GetGlobalMousePosition();
 			IsForceMove = Input.IsActionPressed("force_move");
 		}
-	}
-
-	private void _OnBodyEnteringWeaponRange(Node2D body) {
-		if(!(body is EntityBase) || !body.IsInGroup("Enemy") || weapon.IsWeaponOnCooldown) {
-			return;
-		}
-		
-		target = body as Adversary;
-		Attack((Adversary)body);
 	}
 
 	protected override Vector2 GetNormalizedMovementDirection()
@@ -60,10 +51,19 @@ public partial class ZombieBase : EntityBase
 		|| distanceToRallyPoint <= Threshhold;
 	}
 	
-	private void _InitializeWeapon() {
-		weapon = GetNode<Weapon>("Weapon");
-		weapon.weaponRange.BodyEntered += _OnBodyEnteringWeaponRange;
-		weapon.attackCooldownTimer.Timeout += _EndAttack;
+	private void InitializeWeapon() {
+		weapon = GetNode<Skillshot>("Skillshot");
+		weapon.weaponRange.BodyEntered += OnBodyEnteringWeaponRange;
+		weapon.attackCooldownTimer.Timeout += EndAttack;
+	}
+
+	private void OnBodyEnteringWeaponRange(Node2D body) {
+		if(!(body is EntityBase) || !body.IsInGroup("Enemy") || weapon.IsWeaponOnCooldown) {
+			return;
+		}
+		
+		target = body as Adversary;
+		Attack((Adversary)body);
 	}
 
 	
@@ -72,8 +72,8 @@ public partial class ZombieBase : EntityBase
 		weapon.Attack(body);
 	}
 
-	private void _EndAttack() {
-		if(HasValidTarget()) {
+	private void EndAttack() {
+		if(HasValidTarget() && !IsForceMove) {
 			Attack(target);
 		}
 	}

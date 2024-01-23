@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class Weapon : Node2D
+public partial class Skillshot : Node2D
 {
 	public enum AttackTypes {
 		Stab,
@@ -104,6 +104,11 @@ public partial class Weapon : Node2D
 		IsWeaponOnCooldown = true;
 
 		AttackMethod();
+
+		if(weaponRange.OverlapsBody(target)){
+			OnAttackHittingSomething(target);
+		}
+
 		attackCooldownTimer.Start();
 	}
 

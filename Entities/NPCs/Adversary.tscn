@@ -63,19 +63,14 @@ weaponDamage = 15
 weaponCooldown = 1.5
 weaponSpeed = 300.0
 
-[node name="WeaponRange" type="Area2D" parent="Skillshot"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Skillshot/WeaponRange"]
+[node name="Range" type="CollisionShape2D" parent="Skillshot"]
 shape = SubResource("CircleShape2D_phsx7")
 
-[node name="WeaponHitbox" type="Area2D" parent="Skillshot"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Skillshot/WeaponHitbox"]
+[node name="Hitbox" type="CollisionShape2D" parent="Skillshot"]
 position = Vector2(40, 0)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_byxsq")
 
-[node name="WeaponSprite" type="Sprite2D" parent="Skillshot/WeaponHitbox"]
+[node name="Sprite" type="Sprite2D" parent="Skillshot"]
 position = Vector2(40, 1.71688)
 scale = Vector2(0.0951463, 0.0714358)
 texture = ExtResource("5_mccbf")

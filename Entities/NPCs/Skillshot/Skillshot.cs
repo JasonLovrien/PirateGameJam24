@@ -42,29 +42,36 @@ public partial class Skillshot : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		weaponSprite = GetNode<Sprite2D>("WeaponHitbox/WeaponSprite");
-		weaponHitbox = GetNode<Area2D>("WeaponHitbox");
-		weaponRange = GetNode<Area2D>("WeaponRange");
-		PathProgress = GetNode<PathFollow2D>("Path2D/PathFollow2D");
+		weaponHitbox = GetNode<Area2D>("Path2D/PathFollow2D/HitboxContainer");
+		weaponRange = GetNode<Area2D>("RangeContainer");
+		MoveExternalChildNodesToAreas();
+		
+		weaponSprite = GetNode<Sprite2D>("Path2D/PathFollow2D/HitboxContainer/Sprite");
+		weaponSprite.Visible = false;
+		
 		Path = GetNode<Path2D>("Path2D");
+		PathProgress = GetNode<PathFollow2D>("Path2D/PathFollow2D");
 		
 		attackCooldownTimer = GetNode<Timer>("AttackCooldownTimer");
 		attackCooldownTimer.WaitTime = weaponCooldown;
 		attackCooldownTimer.Timeout += AttackCoolDownOver;
 
 		WeaponRangeLength = GetRangeLength();
-		weaponHitbox.Reparent(PathProgress);
 
 		SetAttackType();
 
 		weaponHitbox.BodyEntered += OnAttackHittingSomething;
-
-		weaponSprite.Visible = false;
+	}
+	
+	private void MoveExternalChildNodesToAreas(){
+		GetNode("Hitbox").Reparent(weaponHitbox);
+		GetNode("Sprite").Reparent(weaponHitbox);
+		GetNode("Range").Reparent(weaponRange);
 	}
 
 	private float GetRangeLength() {
-		float lengthToOuterBounds = (GetNode<CollisionShape2D>("WeaponRange/CollisionShape2D").Shape as CircleShape2D).Radius;
-		float hitboxLength = GetNode<CollisionShape2D>("WeaponHitbox/CollisionShape2D").Shape.GetRect().Size.X;
+		float lengthToOuterBounds = (GetNode<CollisionShape2D>("RangeContainer/Range").Shape as CircleShape2D).Radius;
+		float hitboxLength = GetNode<CollisionShape2D>("Path2D/PathFollow2D/HitboxContainer/Hitbox").Shape.GetRect().Size.X;
 
 		return lengthToOuterBounds - hitboxLength;
 	}

@@ -47,12 +47,8 @@ public partial class BasicSpell : Spell
 		Hitbox2D.Rotation = directionToTarget.Angle();
 		PathProgress.Rotates = false;
 		Path.Curve.ClearPoints();
-		Path.Curve.AddPoint(Caster.GlobalPosition);
-		Path.Curve.AddPoint(Caster.GlobalPosition+(directionToTarget * Range));
-
-		GD.Print($"caster: {Caster.GlobalPosition}");
-		GD.Print($"direc: {directionToTarget}");
-		GD.Print($"range: {Range}");
+		Path.Curve.AddPoint(Vector2.Zero);
+		Path.Curve.AddPoint(directionToTarget * Range);
 
 		Hitbox2D.Reparent(PathProgress);
     }

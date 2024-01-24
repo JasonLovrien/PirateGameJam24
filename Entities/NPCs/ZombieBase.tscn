@@ -62,7 +62,6 @@ shape = SubResource("CircleShape2D_dnfhp")
 [node name="Hitbox" type="CollisionShape2D" parent="Skillshot"]
 position = Vector2(7.62939e-06, -3.8147e-06)
 rotation = 0.692896
-scale = Vector2(1, 1)
 shape = SubResource("CapsuleShape2D_585o1")
 
 [node name="Sprite" type="Sprite2D" parent="Skillshot"]

@@ -97,16 +97,6 @@ public abstract partial class EntityBase : CharacterBody2D
 	//have the same stats to effect
 	protected virtual void ApplyEffect(Effect effect)
 	{
-		//If the effect is damage, subtract it from shield before focusing on current health
-		if(effect.EffectedStat.Equals(Stat.CurrentHealth) && effect.Modifier < 0 && BaseStats[Stat.Shield] > 0 && effect.Instant)
-		{
-			BaseStats[Stat.Shield] -= effect.Modifier;
-			effect.Modifier = BaseStats[Stat.Shield];
-			if(BaseStats[Stat.Shield] < 0){
-				BaseStats[Stat.Shield] = 0;
-			}
-		}
-
 		if(effect.Instant)
 		{
 			BaseStats[effect.EffectedStat] += effect.Modifier;
@@ -124,6 +114,10 @@ public abstract partial class EntityBase : CharacterBody2D
 			};
 
 			EffectTimers.Add(EffectTimer);
+		}
+		
+		if(BaseStats[Stat.CurrentHealth] <= 0) {
+			Die();
 		}
 	}
 

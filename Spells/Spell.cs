@@ -17,12 +17,12 @@ public abstract partial class Spell : Node2D
 	protected Sprite2D IconImage;
 	[Export]
 	protected int ManaCost;
-	protected List<Effect> AllyEffects;
-	protected List<Effect> EnemyEffects;
+	public List<Effect> AllyEffects;
+	public List<Effect> EnemyEffects;
 	[Export]
 	protected EntityBase Caster;
-	protected List<EntityTag> Friendlies;
-	protected List<EntityTag> Enemies;
+	protected List<EntityTag> Friendlies = [];
+	protected List<EntityTag> Enemies = [];
 	protected SpellState CurrentState;
 
 

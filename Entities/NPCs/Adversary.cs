@@ -89,8 +89,8 @@ public partial class Adversary : EntityBase
 		return (target == null || entity is Player) && !entity.IsInGroup("Enemy");
 	}
 
-    protected override void Die()
-    {
+	protected override void Die()
+	{
 		//Roll die to see if zombie spawns from this enemy
 		Random Rand = new Random();
 		int RandNum = Rand.Next(100);
@@ -99,6 +99,6 @@ public partial class Adversary : EntityBase
 			Node Zombie = ResourceLoader.Load<PackedScene>(ZombiePath).Instantiate();
 			GetParent().AddChild(Zombie);
 		}
-        base.Die();
-    }
+		base.Die();
+	}
 }

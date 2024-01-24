@@ -91,13 +91,11 @@ public partial class Adversary : EntityBase
 
     protected override void Die()
     {
-		GD.Print("in here!");
+		//Roll die to see if zombie spawns from this enemy
 		Random Rand = new Random();
 		int RandNum = Rand.Next(100);
-		GD.Print("rand: ", RandNum);
 		if(RandNum <= PercentZombieSpawn)
 		{
-			GD.Print("in here!");
 			Node Zombie = ResourceLoader.Load<PackedScene>(ZombiePath).Instantiate();
 			GetParent().AddChild(Zombie);
 		}

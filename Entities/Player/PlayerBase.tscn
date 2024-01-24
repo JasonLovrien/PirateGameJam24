@@ -1,11 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://wrw5oln1byr7"]
+[gd_scene load_steps=7 format=3 uid="uid://wrw5oln1byr7"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.cs" id="1_dayrv"]
 [ext_resource type="Texture2D" uid="uid://br568vs67kgal" path="res://Assets/Sprites/placeholderNecro.png" id="2_bb15k"]
 [ext_resource type="Texture2D" uid="uid://tbbkrqsfhg4n" path="res://Assets/Sprites/sprite-01a_Lichy.png" id="2_q113j"]
 [ext_resource type="Texture2D" uid="uid://dw1obhnil2vke" path="res://Assets/Sprites/sprite-01b_Lichy.png" id="3_cn7ey"]
-[ext_resource type="PackedScene" uid="uid://db7n8kgqn4mm4" path="res://Entities/NPCs/Skillshot/Skillshot.tscn" id="5_y4u8o"]
-[ext_resource type="Texture2D" uid="uid://b4f2u7d080s33" path="res://icon.svg" id="6_8cxhg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vemq8"]
 animations = [{
@@ -33,14 +31,9 @@ animations = [{
 radius = 12.0
 height = 74.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_r3m3g"]
-radius = 328.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_8q7dv"]
-radius = 16.0
-
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_dayrv")
+AbilityList = Array[String](["BasicSpell"])
 
 [node name="Animation" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.65, 0.65)
@@ -50,22 +43,3 @@ animation = &"Moving"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_jcngn")
-
-[node name="Skillshot" parent="." instance=ExtResource("5_y4u8o")]
-AttackType = 1
-weaponDamage = 20
-weaponCooldown = 1.0
-weaponSpeed = 550.0
-TypesToAffect = Array[int]([2, 3])
-
-[node name="Range" type="CollisionShape2D" parent="Skillshot"]
-shape = SubResource("CircleShape2D_r3m3g")
-
-[node name="Hitbox" type="CollisionShape2D" parent="Skillshot"]
-position = Vector2(16, 0)
-shape = SubResource("CircleShape2D_8q7dv")
-
-[node name="Sprite" type="Sprite2D" parent="Skillshot"]
-position = Vector2(16, 0)
-scale = Vector2(0.1875, 0.1875)
-texture = ExtResource("6_8cxhg")

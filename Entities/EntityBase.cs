@@ -86,10 +86,27 @@ public abstract partial class EntityBase : CharacterBody2D
 		}
 	}
 
+	public virtual void ApplyEffects(List<Effect> effects)
+	{
+		foreach(Effect effect in effects){
+			ApplyEffect(effect);
+		}
+	}
+
 	//Apply Effect could be implemented here since every creature will
 	//have the same stats to effect
-	public virtual void ApplyEffect(Effect effect)
+	protected virtual void ApplyEffect(Effect effect)
 	{
+		//If the effect is damage, subtract it from shield before focusing on current health
+		if(effect.EffectedStat.Equals(Stat.CurrentHealth) && effect.Modifier < 0 && BaseStats[Stat.Shield] > 0 && effect.Instant)
+		{
+			BaseStats[Stat.Shield] -= effect.Modifier;
+			effect.Modifier = BaseStats[Stat.Shield];
+			if(BaseStats[Stat.Shield] < 0){
+				BaseStats[Stat.Shield] = 0;
+			}
+		}
+
 		if(effect.Instant)
 		{
 			BaseStats[effect.EffectedStat] += effect.Modifier;

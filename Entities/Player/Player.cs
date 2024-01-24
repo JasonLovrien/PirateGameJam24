@@ -2,24 +2,31 @@ using Godot;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public partial class Player : EntityBase
 {
-	private List<Spell> AbilityList;
-
+	[Export]
+	private string SpellPath = "res://Spells/";
+	[Export]
+	private Godot.Collections.Array<String> AbilityList;
+	private List<EntityTag> friendlies = new List<EntityTag>() { EntityTag.Zombie };
+	private List<EntityTag> enemis = new List<EntityTag>() { EntityTag.Adversary, EntityTag.Hero };
 	private Skillshot skillShot;
+	private int AbilityIndex = 0;
 
 	protected override void Initialize()
 	{
+		GD.Print("spellname: " + AbilityList[0]);
 		EntityType = EntityTag.Player;
-		skillShot = GetNode<Skillshot>("Skillshot");
-		return;
+		//skillShot = GetNode<Skillshot>("Skillshot");
 	}
 
 	public override void _Input(InputEvent @event)
 	{
 		if(@event.IsActionPressed("primary_button"))
 		{
+			GD.Print("In attack");
 			Attack();
 		}
 	}
@@ -31,23 +38,14 @@ public partial class Player : EntityBase
 	}
 
 	private void Attack() {
+		Spell spell = ResourceLoader.Load<PackedScene>(SpellPath+AbilityList[AbilityIndex]+".tscn").Instantiate() as Spell;
+		GetTree().Root.AddChild(spell);
+		spell.Initialize(this);
+		/*
 		if(!skillShot.IsWeaponOnCooldown){
-			skillShot.Attack(GetGlobalMousePosition());
-		}
-	}
-
-	public override void ApplyEffect(Effect effect)
-	{
-		//If the effect is damage, subtract it from shield before focusing on current health
-		if(effect.EffectedStat.Equals(Stat.CurrentHealth) && effect.Modifier < 0 && BaseStats[Stat.Shield] > 0)
-		{
-			BaseStats[Stat.Shield] -= effect.Modifier;
-			effect.Modifier = BaseStats[Stat.Shield];
-			if(BaseStats[Stat.Shield] < 0){
-				BaseStats[Stat.Shield] = 0;
-			}
-		}
-
-		base.ApplyEffect(effect);
+			Spell spell = ResourceLoader.Load<PackedScene>(SpellPath+AbilityList[AbilityIndex]+".tscn").Instantiate() as Spell;
+			spell.Initialize(this);
+			//skillShot.Attack(GetGlobalMousePosition());
+		}*/
 	}
 }

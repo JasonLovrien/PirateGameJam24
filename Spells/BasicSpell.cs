@@ -23,11 +23,11 @@ public partial class BasicSpell : Spell
 		}
 	}
 
-    public override void Initialize(EntityBase caster)
-    {
+	public override void Initialize(EntityBase caster)
+	{
 		base.Initialize(caster);
 		EnemyEffects = new List<Effect>(){
-			new Effect() { EffectedStat = Stat.CurrentHealth, buff = false, Duration = 0, Instant = true, Modifier = 25 }
+			new Effect() { EffectedStat = Stat.CurrentHealth, buff = false, Duration = 0, Instant = true, Modifier = -25 }
 		};
 
 		Path = GetNode<Path2D>("Path2D");
@@ -37,10 +37,10 @@ public partial class BasicSpell : Spell
 		CurrentState = SpellState.Cast;
 		PlayAnimation(CurrentState);
 		Activate();
-    }
+	}
 
-    public override void Activate()
-    {
+	public override void Activate()
+	{
 		Target = GetGlobalMousePosition();
 
 		Vector2 directionToTarget = (Target - Caster.GlobalPosition).Normalized();
@@ -51,5 +51,5 @@ public partial class BasicSpell : Spell
 		Path.Curve.AddPoint(directionToTarget * Range);
 
 		Hitbox2D.Reparent(PathProgress);
-    }
+	}
 }

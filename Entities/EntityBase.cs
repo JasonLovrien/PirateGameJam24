@@ -97,9 +97,22 @@ public abstract partial class EntityBase : CharacterBody2D
 	//have the same stats to effect
 	protected virtual void ApplyEffect(Effect effect)
 	{
+		if(effect.EffectedStat.Equals(Stat.CurrentHealth) && effect.Modifier < 0 && BaseStats[Stat.Shield] > 0 && effect.Instant)
+		{
+			BaseStats[Stat.Shield] += effect.Modifier;
+			GD.Print($"entity {EntityType} shield: {BaseStats[Stat.Shield]}");
+			if(BaseStats[Stat.Shield] < 0){
+				effect.Modifier = BaseStats[Stat.Shield];
+				BaseStats[Stat.Shield] = 0;
+			} else {
+				return;
+			}
+		}
+
 		if(effect.Instant)
 		{
 			BaseStats[effect.EffectedStat] += effect.Modifier;
+			GD.Print($"{effect.EffectedStat}: {BaseStats[effect.EffectedStat]}");
 		} else
 		{
 			ModifierStats[effect.EffectedStat] += effect.Modifier;

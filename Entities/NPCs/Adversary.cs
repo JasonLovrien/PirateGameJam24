@@ -98,9 +98,15 @@ public partial class Adversary : EntityBase
 		int RandNum = Rand.Next(100);
 		if(RandNum <= PercentZombieSpawn)
 		{
-			Node Zombie = ResourceLoader.Load<PackedScene>(ZombiePath).Instantiate();
-			GetParent().AddChild(Zombie);
+			CallDeferred(nameof(SpawnZombie), GlobalPosition);
 		}
 		base.Die();
+	}
+
+	private void SpawnZombie(Vector2 position) {
+			ZombieBase Zombie = ResourceLoader.Load<PackedScene>(ZombiePath).Instantiate() as ZombieBase;
+			Zombie.GlobalPosition = position;
+			GetParent().AddChild(Zombie);
+		
 	}
 }

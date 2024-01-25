@@ -17,8 +17,8 @@ public abstract partial class Spell : Node2D
 	protected Sprite2D IconImage;
 	[Export]
 	protected int ManaCost;
-	public List<Effect> AllyEffects;
-	public List<Effect> EnemyEffects;
+	public List<Effect> AllyEffects = new List<Effect>();
+	public List<Effect> EnemyEffects = new List<Effect>();
 	[Export]
 	protected EntityBase Caster;
 	protected List<EntityTag> Friendlies = [];

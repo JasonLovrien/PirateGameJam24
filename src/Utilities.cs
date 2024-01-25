@@ -68,6 +68,8 @@ public partial class Utilities:Node {
 public enum SaveValueKeys {
 	Music,
 	Master,
+	LevelNumber,
+	ZombiesOwned
 }
 
 

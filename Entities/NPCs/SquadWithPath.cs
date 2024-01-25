@@ -18,7 +18,8 @@ public partial class SquadWithPath : Node2D
 		for(int i = 0; i < SquadMembers; i++) {
 			Adversary adversary = ResourceLoader.Load<PackedScene>("res://Entities/NPCs/Adversary.tscn").Instantiate() as Adversary;
 			adversary.NextPathNode = NextPathNode;
-			adversary.Position = new Vector2(row * 200, column * 200);
+			adversary.Position = new Vector2(column * 100, row * 100);
+			adversary.PathOffset = adversary.Position;
 			AddChild(adversary);
 
 			row++;

@@ -10,6 +10,8 @@ public partial class Adversary : EntityBase
 	private int PercentZombieSpawn;
 	public PathNode NextPathNode;
 
+	public Vector2 PathOffset = new Vector2(0,0);
+
 	private EntityBase target = null;
 
 	private Skillshot weapon;
@@ -29,11 +31,11 @@ public partial class Adversary : EntityBase
 			return vectorToTarget.Length() < 40 ? Vector2.Zero : vectorToTarget.Normalized();
 		}
 
-		if((NextPathNode.GlobalPosition - GlobalPosition).Length() < 5) {
+		if((NextPathNode.GlobalPosition - GlobalPosition + PathOffset).Length() < 5) {
 			NextPathNode = NextPathNode.NextNode;
 		}
 
-		return (NextPathNode.GlobalPosition - GlobalPosition).Normalized();
+		return (NextPathNode.GlobalPosition - GlobalPosition + PathOffset).Normalized();
 	}
 
 	protected override int GetMovementSpeed() {

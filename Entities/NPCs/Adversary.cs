@@ -4,6 +4,8 @@ using System.Diagnostics;
 
 public partial class Adversary : EntityBase
 {
+	private CustomEvents _CustomEvents;
+
 	[Export]
 	private string ZombiePath;
 	[Export]
@@ -22,6 +24,7 @@ public partial class Adversary : EntityBase
 		BaseStats[Stat.Speed] = 350;
 		InitializeVision();
 		InitializeWeapon();
+		_CustomEvents = GetNode<CustomEvents>("/root/CustomEvents");
 	}
 	
 	protected override Vector2 GetNormalizedMovementDirection()
@@ -98,15 +101,22 @@ public partial class Adversary : EntityBase
 		int RandNum = Rand.Next(100);
 		if(RandNum <= PercentZombieSpawn)
 		{
-			CallDeferred(nameof(SpawnZombie), GlobalPosition);
+			Vector2 positionToSpawn = GlobalPosition;
+			CallDeferred(nameof(SpawnZombie), positionToSpawn);
 		}
+		
+		_CustomEvents.EmitSignal(CustomEvents.SignalName.UpdateAdversaryCount, -1);
 		base.Die();
 	}
 
 	private void SpawnZombie(Vector2 position) {
-			ZombieBase Zombie = ResourceLoader.Load<PackedScene>(ZombiePath).Instantiate() as ZombieBase;
-			Zombie.GlobalPosition = position;
-			GetParent().AddChild(Zombie);
-		
+		_CustomEvents.EmitSignal(CustomEvents.SignalName.UpdateZombieCount, 1);
+		ZombieBase Zombie = ResourceLoader.Load<PackedScene>(ZombiePath).Instantiate() as ZombieBase;
+		GetParent().AddChild(Zombie);
+		Zombie.GlobalPosition = position;
+	}
+
+	private void OnLevelFinish() {
+		QueueFree();
 	}
 }

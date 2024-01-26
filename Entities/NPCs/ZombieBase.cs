@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 public partial class ZombieBase : EntityBase
 {
 	[Export]
-	private float Threshhold;
+	private float Threshhold = 70;
 	private Vector2 RallyPoint = Vector2.Zero;
 	private bool IsForceMove = false;
 	

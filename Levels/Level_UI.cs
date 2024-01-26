@@ -13,6 +13,8 @@ public partial class Level_UI : Control
 	[Export]
 	private ProgressBar PlayerShield;
 
+	private int zombies = 0;
+
 	public override void _Ready()
 	{
 		GD.Print($"HEY, ABOUT TO SET THE PLAYER HEALTH {PlayerHealth}");
@@ -38,8 +40,9 @@ public partial class Level_UI : Control
 		_CustomEvents.UpdatePlayerHealth -= UpdatePlayerHealth;
 	}
 
-	private void UpdateZombieCount(int zombies)
+	private void UpdateZombieCount(int countChange)
 	{
+		zombies += countChange;
 		ZombieCount.Text = $"Zombies: {zombies}";
 	}
 

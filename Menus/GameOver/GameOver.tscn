@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnj82nyqsnvij"]
+
+[ext_resource type="FontFile" uid="uid://cthd05yl2d636" path="res://Assets/UI/PixelifySans-VariableFont_wght.ttf" id="1_rj46u"]
+[ext_resource type="Theme" uid="uid://drf4vlv8rrw6q" path="res://Assets/UI/DefaultMenu.tres" id="2_38n0k"]
+[ext_resource type="Script" path="res://Menus/GameOver/MainMenuBtn.cs" id="3_b6qhr"]
+
+[node name="GameOver" type="CanvasLayer"]
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_left = 705.0
+offset_top = 420.0
+offset_right = 1215.0
+offset_bottom = 659.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/v_separation = 60
+
+[node name="Label" type="Label" parent="GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_rj46u")
+theme_override_font_sizes/font_size = 100
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="MainMenuBtn" type="Button" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_38n0k")
+text = "Main Menu"
+script = ExtResource("3_b6qhr")
+
+[node name="Timer" type="Timer" parent="GridContainer/MainMenuBtn"]
+wait_time = 2.0
+one_shot = true
+autostart = true

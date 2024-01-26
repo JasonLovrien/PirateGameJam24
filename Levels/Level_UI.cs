@@ -38,7 +38,6 @@ public partial class Level_UI : Control
 
 	private void UpdatePlayerHealth(int max, int current)
 	{
-		GD.Print($"in hererere {max}, {current} ,,, {(float)current/(float)max*100}");
 		PlayerHealth.Value = Mathf.RoundToInt((float)current/(float)max*100);
 	}
 

@@ -11,6 +11,6 @@ public partial class btnOptions : Button
 			GetTree().Root.AddChild(optionsScene);
 		};
 		
-		this.Pressed += changeSceneToOptions;
+		Pressed += changeSceneToOptions;
 	}
 }

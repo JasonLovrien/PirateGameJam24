@@ -6,6 +6,7 @@ using System.Diagnostics;
 
 public partial class Player : EntityBase
 {
+	private CustomEvents _CustomEvents;
 	[Export]
 	private string SpellPath = "res://Spells/";
 	[Export]
@@ -16,6 +17,7 @@ public partial class Player : EntityBase
 	protected override void Initialize()
 	{
 		EntityType = EntityTag.Player;
+		_CustomEvents = GetNode<CustomEvents>("/root/CustomEvents");
 	}
 
 	public override void _Input(InputEvent @event)
@@ -36,5 +38,23 @@ public partial class Player : EntityBase
 		Spell spell = ResourceLoader.Load<PackedScene>(SpellPath+AbilityList[AbilityIndex]+".tscn").Instantiate() as Spell;
 		GetTree().Root.AddChild(spell);
 		spell.Initialize(this);
+	}
+
+    protected override void ApplyEffect(Effect effect)
+    {
+        base.ApplyEffect(effect);
+		if(effect.EffectedStat.Equals(Stat.CurrentHealth))
+		{
+			//Update this later to incorporate StatModifiers
+			_CustomEvents.EmitSignal(nameof(CustomEvents.UpdatePlayerHealthEventHandler),
+			BaseStats[Stat.MaxHealth], BaseStats[Stat.CurrentHealth]);
+		}
+    }
+
+	public override void Damage(int damage)
+	{
+		base.Damage(damage);
+		//Update this later to incorporate StatModifiers
+		_CustomEvents.EmitSignal(nameof(CustomEvents.UpdatePlayerHealthEventHandler), BaseStats[Stat.MaxHealth], BaseStats[Stat.CurrentHealth]);
 	}
 }

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://wku06ud764b"]
+[gd_scene load_steps=5 format=3 uid="uid://wku06ud764b"]
 
 [ext_resource type="PackedScene" uid="uid://wrw5oln1byr7" path="res://Entities/Player/PlayerBase.tscn" id="1_4nx0y"]
+[ext_resource type="PackedScene" uid="uid://d4cmr6lt7r3fi" path="res://Levels/Level_UI.tscn" id="1_fhlow"]
 [ext_resource type="PackedScene" uid="uid://dqcatls0nnu6e" path="res://Entities/NPCs/ZombieBase.tscn" id="1_kyca4"]
 [ext_resource type="PackedScene" uid="uid://bvy6mblvc4vs4" path="res://Entities/NPCs/SquadWithPath.tscn" id="3_bvanb"]
 
@@ -12,7 +13,6 @@
 remote_path = NodePath("../../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-visible = false
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 2.0
@@ -27,3 +27,5 @@ Threshhold = 50.0
 
 [node name="SquadWithPath" parent="." instance=ExtResource("3_bvanb")]
 position = Vector2(-512, 256)
+
+[node name="LevelUI" parent="." instance=ExtResource("1_fhlow")]

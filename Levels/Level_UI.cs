@@ -15,15 +15,27 @@ public partial class Level_UI : Control
 
 	public override void _Ready()
 	{
+		GD.Print($"HEY, ABOUT TO SET THE PLAYER HEALTH {PlayerHealth}");
+		PlayerHealth = GetNode<ProgressBar>("CanvasLayer/HealthBar");
+		GD.Print($"HEY, SET THE PLAYER HEALTH {PlayerHealth}");
 		_CustomEvents = GetNode<CustomEvents>("/root/CustomEvents");
 		_CustomEvents.UpdateZombieCount += UpdateZombieCount;
 		_CustomEvents.UpdateSpellName += UpdateSpellName;
 		_CustomEvents.UpdatePlayerHealth += UpdatePlayerHealth;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public override void _Notification(int what)
 	{
+		base._Notification(what);
+		if(what == NotificationPredelete) {
+			DisconnectCustomEvents();
+		}
+	}
+
+	private void DisconnectCustomEvents() {
+		_CustomEvents.UpdateZombieCount -= UpdateZombieCount;
+		_CustomEvents.UpdateSpellName -= UpdateSpellName;
+		_CustomEvents.UpdatePlayerHealth -= UpdatePlayerHealth;
 	}
 
 	private void UpdateZombieCount(int zombies)
@@ -38,6 +50,7 @@ public partial class Level_UI : Control
 
 	private void UpdatePlayerHealth(int max, int current)
 	{
+		GD.Print($"PlayerHealth baby {PlayerHealth}");
 		PlayerHealth.Value = Mathf.RoundToInt((float)current/(float)max*100);
 	}
 

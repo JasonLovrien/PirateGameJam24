@@ -43,7 +43,7 @@ public abstract partial class EntityBase : CharacterBody2D
 		{ Stat.CurrentMana, 150 },
 		{ Stat.Defense, 20 },
 		{ Stat.Attack, 25 },
-		{ Stat.Shield, 150 },
+		{ Stat.Shield, 0 },
 		{ Stat.Speed, 300 }
 	};
 	protected Dictionary<Stat, int> ModifierStats = new Dictionary<Stat, int>();

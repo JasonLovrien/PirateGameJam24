@@ -32,6 +32,7 @@ public abstract partial class Spell : Node2D
 	protected Area2D Range2D;
 	protected float Range;
 	protected int ChargingTime;
+	protected int NumberHit;
 	public abstract void Activate();
 
 	// Called when the node enters the scene tree for the first time.
@@ -43,6 +44,7 @@ public abstract partial class Spell : Node2D
 		SpellAudioPlayer = Hitbox2D.GetNode<AudioStreamPlayer2D>("Sound");
 
 		Hitbox2D.BodyEntered += OnCollisionEnter;
+		NumberHit = 0;
 
 		Range = (Range2D.GetChild<CollisionShape2D>(0).Shape as CircleShape2D).Radius
 		- Hitbox2D.GetChild<CollisionShape2D>(0).Shape.GetRect().Size.X;
@@ -98,8 +100,10 @@ public abstract partial class Spell : Node2D
 	{
 		if(Friendlies.Contains(body.EntityType) && AllyEffects.Count > 0){
 			body.ApplyEffects(AllyEffects);
+			NumberHit += 1;
 		} else if(Enemies.Contains(body.EntityType) && EnemyEffects.Count > 0){
 			body.ApplyEffects(EnemyEffects);
+			NumberHit += 1;
 		}
 	}
 }

@@ -53,12 +53,12 @@ public partial class BasicSpell : Spell
 		Hitbox2D.Reparent(PathProgress);
 	}
 
-    protected override void OnCollisionEnter(Node2D body)
-    {
-        base.OnCollisionEnter(body);
+	protected override void OnCollisionEnter(Node2D body)
+	{
+		base.OnCollisionEnter(body);
 
 		if(NumberHit > 0){
 			QueueFree();
 		}
-    }
+	}
 }

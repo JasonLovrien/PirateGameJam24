@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-CustomEvents="*res://src/CustomEvents.cs"
 Utilities="*res://src/Utilities.cs"
+CustomEvents="*res://src/CustomEvents.cs"
 
 [display]
 

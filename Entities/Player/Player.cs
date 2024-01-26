@@ -40,21 +40,21 @@ public partial class Player : EntityBase
 		spell.Initialize(this);
 	}
 
-    protected override void ApplyEffect(Effect effect)
-    {
-        base.ApplyEffect(effect);
+	protected override void ApplyEffect(Effect effect)
+	{
+		base.ApplyEffect(effect);
 		if(effect.EffectedStat.Equals(Stat.CurrentHealth))
 		{
 			//Update this later to incorporate StatModifiers
-			_CustomEvents.EmitSignal(nameof(CustomEvents.UpdatePlayerHealthEventHandler),
+			_CustomEvents.EmitSignal(CustomEvents.SignalName.UpdatePlayerHealth,
 			BaseStats[Stat.MaxHealth], BaseStats[Stat.CurrentHealth]);
 		}
-    }
+	}
 
 	public override void Damage(int damage)
 	{
 		base.Damage(damage);
 		//Update this later to incorporate StatModifiers
-		_CustomEvents.EmitSignal(nameof(CustomEvents.UpdatePlayerHealthEventHandler), BaseStats[Stat.MaxHealth], BaseStats[Stat.CurrentHealth]);
+		_CustomEvents.EmitSignal(CustomEvents.SignalName.UpdatePlayerHealth, BaseStats[Stat.MaxHealth], BaseStats[Stat.CurrentHealth]);
 	}
 }

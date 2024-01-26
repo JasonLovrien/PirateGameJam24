@@ -14,12 +14,12 @@ public partial class Level_UI : Control
 	private ProgressBar PlayerShield;
 
 	public override void _Ready()
-    {
+	{
 		_CustomEvents = GetNode<CustomEvents>("/root/CustomEvents");
 		_CustomEvents.UpdateZombieCount += UpdateZombieCount;
 		_CustomEvents.UpdateSpellName += UpdateSpellName;
 		_CustomEvents.UpdatePlayerHealth += UpdatePlayerHealth;
-    }
+	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -38,8 +38,8 @@ public partial class Level_UI : Control
 
 	private void UpdatePlayerHealth(int max, int current)
 	{
-		GD.Print("in hererere");
-		PlayerHealth.Value = Mathf.RoundToInt(current/max*100);
+		GD.Print($"in hererere {max}, {current} ,,, {(float)current/(float)max*100}");
+		PlayerHealth.Value = Mathf.RoundToInt((float)current/(float)max*100);
 	}
 
 	private void UpdatePlayerShield(int max, int current)

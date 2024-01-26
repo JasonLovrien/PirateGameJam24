@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://wku06ud764b"]
+[gd_scene load_steps=9 format=3 uid="uid://wku06ud764b"]
 
 [ext_resource type="PackedScene" uid="uid://wrw5oln1byr7" path="res://Entities/Player/PlayerBase.tscn" id="1_4nx0y"]
 [ext_resource type="PackedScene" uid="uid://dqcatls0nnu6e" path="res://Entities/NPCs/ZombieBase.tscn" id="1_kyca4"]
 [ext_resource type="Texture2D" uid="uid://7gj4dqtjgs6x" path="res://Assets/Sprites/grass.png" id="1_n6r24"]
 [ext_resource type="Texture2D" uid="uid://c5qbgbefw1mvi" path="res://Assets/Sprites/fence_00.png" id="2_yrbpg"]
 [ext_resource type="PackedScene" uid="uid://bvy6mblvc4vs4" path="res://Entities/NPCs/SquadWithPath.tscn" id="3_bvanb"]
+[ext_resource type="PackedScene" uid="uid://d4cmr6lt7r3fi" path="res://Levels/Level_UI.tscn" id="6_wyndo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qrx4x"]
 texture = ExtResource("2_yrbpg")
@@ -63,3 +64,5 @@ Threshhold = 50.0
 
 [node name="SquadWithPath" parent="." instance=ExtResource("3_bvanb")]
 position = Vector2(-512, 256)
+
+[node name="LevelUI" parent="." instance=ExtResource("6_wyndo")]

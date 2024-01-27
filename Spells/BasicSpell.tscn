@@ -1,7 +1,7 @@
 [gd_scene load_steps=24 format=3 uid="uid://comn6ebhorftb"]
 
 [ext_resource type="Script" path="res://Spells/BasicSpell.cs" id="1_8vaal"]
-[ext_resource type="Texture2D" uid="uid://b4f2u7d080s33" path="res://icon.svg" id="2_irqk3"]
+[ext_resource type="Texture2D" uid="uid://caukptbwoq824" path="res://Assets/Sprites/fireball3.png" id="2_vu5cd"]
 [ext_resource type="Texture2D" uid="uid://bwhsn8a5icvth" path="res://Assets/Sprites/Hit-Yellow.png" id="3_iil20"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ggel6"]
@@ -75,7 +75,7 @@ region = Rect2(3072, 3072, 1024, 1024)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_irqk3")
+"texture": ExtResource("2_vu5cd")
 }],
 "loop": true,
 "name": &"Cast",
@@ -154,7 +154,8 @@ shape = SubResource("CircleShape2D_ggel6")
 [node name="Sound" type="AudioStreamPlayer2D" parent="Hitbox"]
 
 [node name="Animation" type="AnimatedSprite2D" parent="Hitbox"]
-scale = Vector2(0.15, 0.15)
+position = Vector2(-8, 0)
+scale = Vector2(0.0225352, 0.0304762)
 sprite_frames = SubResource("SpriteFrames_8d6mx")
 animation = &"Cast"
 

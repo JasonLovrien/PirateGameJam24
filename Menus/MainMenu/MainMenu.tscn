@@ -42,11 +42,6 @@ theme = ExtResource("2_v13u3")
 text = "Start New Campaign"
 script = ExtResource("3_awmlj")
 
-[node name="btnContinueCampaign" type="Button" parent="GridContainer/MainMenuButtons"]
-layout_mode = 2
-theme = ExtResource("2_v13u3")
-text = "Continue Campaign"
-
 [node name="btnOptions" type="Button" parent="GridContainer/MainMenuButtons"]
 layout_mode = 2
 theme = ExtResource("2_v13u3")

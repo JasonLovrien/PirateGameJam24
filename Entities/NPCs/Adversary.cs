@@ -115,8 +115,4 @@ public partial class Adversary : EntityBase
 		GetParent().AddChild(Zombie);
 		Zombie.GlobalPosition = position;
 	}
-
-	private void OnLevelFinish() {
-		QueueFree();
-	}
 }

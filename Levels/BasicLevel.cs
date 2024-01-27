@@ -5,6 +5,10 @@ public partial class BasicLevel : Node2D
 {
 	private CustomEvents _CustomEvents;
 
+	private Label levelIndicator;
+
+	private Timer levelIndicatorTimer;
+
 	private int AdversaryCount = 0;
 
 	private int ZombieCount = 0;
@@ -20,6 +24,10 @@ public partial class BasicLevel : Node2D
 		int adversaryCount = squads * enemiesPerSquad;
 		AdversaryCount = 0;
 		_CustomEvents.EmitSignal(CustomEvents.SignalName.UpdateAdversaryCount, adversaryCount);
+
+		levelIndicator.Text = $"LEVEL {level}";
+		levelIndicator.Visible = true;
+		levelIndicatorTimer.Start();
 
 		SpawnSquads(squads, enemiesPerSquad);
 		SpawnZombies(zombiesControlled);
@@ -68,7 +76,13 @@ public partial class BasicLevel : Node2D
 		_CustomEvents.UpdateZombieCount += UpdateZombieCount;
 		ZombieCount = 0;
 
-		SetupLevel(AdversaryCount, ZombieCount);
+		levelIndicator = GetNode<Label>("CanvasLayer/Label");
+
+		levelIndicatorTimer = GetNode<Timer>("LevelStartTimer");
+
+		levelIndicatorTimer.Timeout += () => {levelIndicator.Visible= false;};
+
+		SetupLevel(level, ZombieCount);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

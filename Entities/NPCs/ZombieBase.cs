@@ -101,4 +101,9 @@ public partial class ZombieBase : EntityBase
 	private void DisconnectCustomEvents() {
 		_CustomEvents.LevelCompleted -= OnLevelCompleted;
 	}
+
+	protected override void Die() {
+		_CustomEvents.EmitSignal(CustomEvents.SignalName.UpdateZombieCount, -1);
+		base.Die();
+	}
 }

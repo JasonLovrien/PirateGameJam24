@@ -30,13 +30,13 @@ offset_bottom = 274.0
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontVariation_yufv3")
 theme_override_font_sizes/font_size = 25
-text = "Zombies:"
+text = "Zombies: 0"
 
 [node name="Current Spell" type="Label" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontVariation_vu5vq")
 theme_override_font_sizes/font_size = 25
-text = "Selected Spell:"
+text = "Adversaries Left:"
 
 [node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
 anchors_preset = -1

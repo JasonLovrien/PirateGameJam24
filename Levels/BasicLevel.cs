@@ -17,7 +17,9 @@ public partial class BasicLevel : Node2D
 		int squads = GetNumberOfSquads(level);
 		int enemiesPerSquad = GetEnemiesPerSquad(level);
 
-		AdversaryCount = squads * enemiesPerSquad;
+		int adversaryCount = squads * enemiesPerSquad;
+		AdversaryCount = 0;
+		_CustomEvents.EmitSignal(CustomEvents.SignalName.UpdateAdversaryCount, adversaryCount);
 
 		SpawnSquads(squads, enemiesPerSquad);
 		SpawnZombies(zombiesControlled);
@@ -65,6 +67,7 @@ public partial class BasicLevel : Node2D
 		_CustomEvents.UpdateAdversaryCount += UpdateAdversaryCount;
 		_CustomEvents.UpdateZombieCount += UpdateZombieCount;
 		ZombieCount = 0;
+
 		SetupLevel(AdversaryCount, ZombieCount);
 	}
 
@@ -102,7 +105,7 @@ public partial class BasicLevel : Node2D
 
 	private void LevelCompleted() {
 		GD.Print("LEVEL COMPLETED");
-			_CustomEvents.EmitSignal(CustomEvents.SignalName.LevelCompleted);
+		_CustomEvents.EmitSignal(CustomEvents.SignalName.LevelCompleted);
 		level += 1;
 		SetupLevel(level, ZombieCount);
 	}

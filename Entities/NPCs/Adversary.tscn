@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Entities/NPCs/Adversary.cs" id="1_n6pmd"]
 [ext_resource type="Texture2D" uid="uid://dlsdkuwvtp5cd" path="res://Assets/Sprites/sprite-02b_people.png" id="2_f372n"]
 [ext_resource type="PackedScene" uid="uid://db7n8kgqn4mm4" path="res://Entities/NPCs/Skillshot/Skillshot.tscn" id="4_h5vix"]
-[ext_resource type="Texture2D" uid="uid://vl76a0wddtup" path="res://Assets/Sprites/DO NOT USE IN FINAL GAME ROTATEDV2.png" id="5_mccbf"]
+[ext_resource type="Texture2D" uid="uid://c6ogln841j3j2" path="res://Assets/Sprites/pixil-layer-Background.png" id="5_dcreo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rn66t"]
 radius = 8.0
@@ -39,7 +39,7 @@ radius = 320.1
 radius = 88.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_byxsq"]
-size = Vector2(73, 5)
+size = Vector2(68.5, 5)
 
 [node name="Adversary" type="CharacterBody2D" groups=["Enemy"]]
 script = ExtResource("1_n6pmd")
@@ -70,10 +70,10 @@ TypesToAffect = Array[int]([0, 1])
 shape = SubResource("CircleShape2D_phsx7")
 
 [node name="Hitbox" type="CollisionShape2D" parent="Skillshot"]
-position = Vector2(40, 0)
+position = Vector2(37.75, 0)
 shape = SubResource("RectangleShape2D_byxsq")
 
 [node name="Sprite" type="Sprite2D" parent="Skillshot"]
-position = Vector2(40, 1.71688)
-scale = Vector2(0.0951463, 0.0714358)
-texture = ExtResource("5_mccbf")
+position = Vector2(36.8107, -2.38419e-07)
+scale = Vector2(0.703786, 0.68351)
+texture = ExtResource("5_dcreo")

@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Entities/NPCs/ZombieBase.cs" id="1_101yj"]
 [ext_resource type="Texture2D" uid="uid://sqa5yi85jk0" path="res://Assets/Sprites/sprite-03a_zombie.png" id="2_qmms7"]
 [ext_resource type="Texture2D" uid="uid://du1mslyjruoc6" path="res://Assets/Sprites/sprite-03b_zombie.png" id="3_k4fwy"]
-[ext_resource type="Texture2D" uid="uid://clbrpplpovmlp" path="res://Assets/Sprites/DO_NOT_USE_IN_FINAL_GAME_PLACEHOLDER_WEAPON.png" id="4_2hpxg"]
 [ext_resource type="PackedScene" uid="uid://db7n8kgqn4mm4" path="res://Entities/NPCs/Skillshot/Skillshot.tscn" id="4_j6gke"]
+[ext_resource type="Texture2D" uid="uid://c6ogln841j3j2" path="res://Assets/Sprites/pixil-layer-Background.png" id="5_12wlc"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vemq8"]
 animations = [{
@@ -35,9 +35,8 @@ height = 48.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_dnfhp"]
 radius = 72.4431
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_585o1"]
-radius = 6.15519
-height = 67.592
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u4xo8"]
+size = Vector2(57, 8)
 
 [node name="Zombie" type="CharacterBody2D"]
 script = ExtResource("1_101yj")
@@ -60,11 +59,10 @@ TypesToAffect = Array[int]([2, 3])
 shape = SubResource("CircleShape2D_dnfhp")
 
 [node name="Hitbox" type="CollisionShape2D" parent="Skillshot"]
-position = Vector2(7.62939e-06, -3.8147e-06)
-rotation = 0.692896
-shape = SubResource("CapsuleShape2D_585o1")
+position = Vector2(27.5, 0)
+shape = SubResource("RectangleShape2D_u4xo8")
 
 [node name="Sprite" type="Sprite2D" parent="Skillshot"]
-position = Vector2(3.8147e-06, -1.90735e-06)
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("4_2hpxg")
+position = Vector2(29.375, -2.38419e-07)
+scale = Vector2(0.5325, 0.558333)
+texture = ExtResource("5_12wlc")

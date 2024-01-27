@@ -16,7 +16,6 @@ public partial class Player : EntityBase
 
 	protected override void Initialize()
 	{
-		GD.Print("HERE IN PLAYER");
 		BaseStats[Stat.CurrentHealth] = 300;
 		EntityType = EntityTag.Player;
 		_CustomEvents = GetNode<CustomEvents>("/root/CustomEvents");

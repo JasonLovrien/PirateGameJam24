@@ -105,7 +105,6 @@ public partial class BasicLevel : Node2D
 	}
 
 	private void UpdateAdversaryCount(int amount) {
-		GD.Print($"ADVERSARYCOUNT: {AdversaryCount}");
 		AdversaryCount += amount;
 
 		if(AdversaryCount <= 0) {
@@ -118,7 +117,6 @@ public partial class BasicLevel : Node2D
 	}
 
 	private void LevelCompleted() {
-		GD.Print("LEVEL COMPLETED");
 		_CustomEvents.EmitSignal(CustomEvents.SignalName.LevelCompleted);
 		level += 1;
 		SetupLevel(level, ZombieCount);

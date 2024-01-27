@@ -99,12 +99,14 @@ public partial class Adversary : EntityBase
 		//Roll die to see if zombie spawns from this enemy
 		Random Rand = new Random();
 		int RandNum = Rand.Next(100);
+		GD.Print("DYING");
 		if(RandNum <= PercentZombieSpawn)
 		{
+			GD.Print("MAKING ZOMBIE");
 			Vector2 positionToSpawn = GlobalPosition;
 			CallDeferred(nameof(SpawnZombie), positionToSpawn);
 		}
-		
+
 		_CustomEvents.EmitSignal(CustomEvents.SignalName.UpdateAdversaryCount, -1);
 		base.Die();
 	}

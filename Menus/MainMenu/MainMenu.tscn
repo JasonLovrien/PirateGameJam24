@@ -27,8 +27,8 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("1_jl7th")
 theme_override_font_sizes/font_size = 80
-text = "NECROMANCER
-RAMPAGE"
+text = "Ned
+Necromancer"
 horizontal_alignment = 1
 
 [node name="MainMenuButtons" type="GridContainer" parent="GridContainer"]
@@ -41,11 +41,6 @@ layout_mode = 2
 theme = ExtResource("2_v13u3")
 text = "Start New Campaign"
 script = ExtResource("3_awmlj")
-
-[node name="btnContinueCampaign" type="Button" parent="GridContainer/MainMenuButtons"]
-layout_mode = 2
-theme = ExtResource("2_v13u3")
-text = "Continue Campaign"
 
 [node name="btnOptions" type="Button" parent="GridContainer/MainMenuButtons"]
 layout_mode = 2

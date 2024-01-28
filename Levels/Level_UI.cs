@@ -13,21 +13,37 @@ public partial class Level_UI : Control
 	[Export]
 	private ProgressBar PlayerShield;
 
+	private int zombies = 0;
+	private int adversaries = 0;
+
 	public override void _Ready()
 	{
+		PlayerHealth = GetNode<ProgressBar>("CanvasLayer/HealthBar");
 		_CustomEvents = GetNode<CustomEvents>("/root/CustomEvents");
 		_CustomEvents.UpdateZombieCount += UpdateZombieCount;
 		_CustomEvents.UpdateSpellName += UpdateSpellName;
 		_CustomEvents.UpdatePlayerHealth += UpdatePlayerHealth;
+		_CustomEvents.UpdateAdversaryCount += UpdateAdversaryCount;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public override void _Notification(int what)
 	{
+		base._Notification(what);
+		if(what == NotificationPredelete) {
+			DisconnectCustomEvents();
+		}
 	}
 
-	private void UpdateZombieCount(int zombies)
+	private void DisconnectCustomEvents() {
+		_CustomEvents.UpdateZombieCount -= UpdateZombieCount;
+		_CustomEvents.UpdateSpellName -= UpdateSpellName;
+		_CustomEvents.UpdatePlayerHealth -= UpdatePlayerHealth;
+		_CustomEvents.UpdateAdversaryCount -= UpdateAdversaryCount;
+	}
+
+	private void UpdateZombieCount(int countChange)
 	{
+		zombies += countChange;
 		ZombieCount.Text = $"Zombies: {zombies}";
 	}
 
@@ -38,8 +54,12 @@ public partial class Level_UI : Control
 
 	private void UpdatePlayerHealth(int max, int current)
 	{
-		GD.Print($"in hererere {max}, {current} ,,, {(float)current/(float)max*100}");
 		PlayerHealth.Value = Mathf.RoundToInt((float)current/(float)max*100);
+	}
+
+	private void UpdateAdversaryCount(int count) {
+		adversaries += count;
+		CurrentSpell.Text = $"Enemies Left: {adversaries}";
 	}
 
 	private void UpdatePlayerShield(int max, int current)

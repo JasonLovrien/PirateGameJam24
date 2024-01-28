@@ -16,8 +16,12 @@ public partial class Player : EntityBase
 
 	protected override void Initialize()
 	{
+		BaseStats[Stat.CurrentHealth] = 300;
 		EntityType = EntityTag.Player;
 		_CustomEvents = GetNode<CustomEvents>("/root/CustomEvents");
+
+		_CustomEvents.EmitSignal(CustomEvents.SignalName.UpdatePlayerHealth,
+		BaseStats[Stat.MaxHealth], BaseStats[Stat.CurrentHealth]);
 	}
 
 	public override void _Input(InputEvent @event)

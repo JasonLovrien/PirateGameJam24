@@ -10,6 +10,6 @@ public partial class NewCampaign : Button
 			GetTree().ChangeSceneToFile("res://Levels/BasicLevel.tscn");
 		};
 		
-		this.Pressed += changeSceneToNewCampaign;
+		Pressed += changeSceneToNewCampaign;
 	}
 }

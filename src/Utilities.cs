@@ -8,6 +8,12 @@ public partial class Utilities:Node {
 	public override void _Ready() {
 		Load();
 		SetPreferences();
+		GetNode<CustomEvents>("/root/CustomEvents").UpdatePlayerHealth += (int max, int current) => {
+			if(current <= 0) {
+				Node mainMenu = ResourceLoader.Load<PackedScene>("res://Menus/GameOver/GameOver.tscn").Instantiate();
+				GetTree().Root.AddChild(mainMenu);
+			}
+		};
 	}
 	
 	public static void SetBusVolume(int newMusicLevel, string busToControl) {

@@ -4,8 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 public partial class ZombieBase : EntityBase
 {
+	private CustomEvents _CustomEvents;
 	[Export]
-	private float Threshhold;
+	private float Threshhold = 70;
 	private Vector2 RallyPoint = Vector2.Zero;
 	private bool IsForceMove = false;
 	
@@ -22,6 +23,12 @@ public partial class ZombieBase : EntityBase
 		EntityType = EntityTag.Zombie;
 		InitializeWeapon();
 		deceleration = 15;
+		_CustomEvents = GetNode<CustomEvents>("/root/CustomEvents");
+		_CustomEvents.LevelCompleted += OnLevelCompleted;
+	}
+
+	private void OnLevelCompleted() {
+		QueueFree();
 	}
 
 	public override void _Input(InputEvent @event)
@@ -80,5 +87,23 @@ public partial class ZombieBase : EntityBase
 	
 	private bool HasValidTarget() {
 		return IsInstanceValid(target) && weapon.weaponRange.OverlapsBody(target);
+	}
+	
+
+	public override void _Notification(int what)
+	{
+		base._Notification(what);
+		if(what == NotificationPredelete) {
+			DisconnectCustomEvents();
+		}
+	}
+
+	private void DisconnectCustomEvents() {
+		_CustomEvents.LevelCompleted -= OnLevelCompleted;
+	}
+
+	protected override void Die() {
+		_CustomEvents.EmitSignal(CustomEvents.SignalName.UpdateZombieCount, -1);
+		base.Die();
 	}
 }

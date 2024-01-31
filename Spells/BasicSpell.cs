@@ -26,9 +26,6 @@ public partial class BasicSpell : Spell
 	public override void Initialize(EntityBase caster)
 	{
 		base.Initialize(caster);
-		EnemyEffects = new List<Effect>(){
-			new Effect() { EffectedStat = Stat.CurrentHealth, buff = false, Duration = 0, Instant = true, Modifier = -25 }
-		};
 
 		Path = GetNode<Path2D>("Path2D");
 		PathProgress = GetNode<PathFollow2D>("Path2D/PathFollow2D");

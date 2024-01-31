@@ -86,16 +86,16 @@ public abstract partial class EntityBase : CharacterBody2D
 		}
 	}
 
-	public virtual void ApplyEffects(Godot.Collections.Array<EntityEffect> effects)
+	public virtual void ApplyEffects(List<Effect> effects)
 	{
-		foreach(EntityEffect effect in effects){
+		foreach(Effect effect in effects){
 			ApplyEffect(effect);
 		}
 	}
 
 	//Apply Effect could be implemented here since every creature will
 	//have the same stats to effect
-	protected virtual void ApplyEffect(EntityEffect effect)
+	protected virtual void ApplyEffect(Effect effect)
 	{
 		if(effect.EffectedStat.Equals(Stat.CurrentHealth) && effect.Modifier < 0 && BaseStats[Stat.Shield] > 0 && effect.Instant)
 		{

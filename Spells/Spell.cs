@@ -16,7 +16,7 @@ public abstract partial class Spell : Node2D
 	protected string SpellName;
 	[Export]
 	protected Sprite2D IconImage;
-	[Export]
+	[Export(PropertyHint.MultilineText)]
 	protected string Description;
 	[ExportGroup("Spell Effects")]
 	[Export]
@@ -114,8 +114,7 @@ public abstract partial class Spell : Node2D
 		if(Friendlies.Contains(body.EntityType) && AllyEffects.Count > 0){
 			body.ApplyEffects(AllyEffects);
 			NumberHit += 1;
-		}
-		if(Enemies.Contains(body.EntityType) && EnemyEffects.Count > 0){
+		} else if(Enemies.Contains(body.EntityType) && EnemyEffects.Count > 0){
 			body.ApplyEffects(EnemyEffects);
 			NumberHit += 1;
 		}

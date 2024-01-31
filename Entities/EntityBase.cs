@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 
@@ -110,7 +111,34 @@ public abstract partial class EntityBase : CharacterBody2D
 
 		if(effect.Instant)
 		{
-			BaseStats[effect.EffectedStat] += Mathf.RoundToInt(effect.Modifier);
+			float modifierValue = effect.Modifier;
+
+			//Calculate percent if need be
+			if(effect.Percent){
+				modifierValue = GetPercentageValue(effect.UsedStat, effect.Modifier);
+			}
+			BaseStats[effect.EffectedStat] += Mathf.RoundToInt(modifierValue);
+
+			//Prevent health and mana from going over the max or under 0
+			switch(effect.EffectedStat)
+			{
+				case Stat.CurrentHealth :
+					if(BaseStats[effect.EffectedStat] > BaseStats[Stat.MaxHealth])
+					{
+						BaseStats[effect.EffectedStat] = BaseStats[Stat.MaxHealth];
+					} else if (BaseStats[effect.EffectedStat] < 0){
+						BaseStats[effect.EffectedStat] = 0;
+					}
+					break;
+				case Stat.CurrentMana :
+					if(BaseStats[effect.EffectedStat] > BaseStats[Stat.MaxMana])
+					{
+						BaseStats[effect.EffectedStat] = BaseStats[Stat.MaxMana];
+					} else if (BaseStats[effect.EffectedStat] < 0){
+						BaseStats[effect.EffectedStat] = 0;
+					}
+					break;
+			}
 		} else
 		{
 			ModifierStats[effect.EffectedStat] += Mathf.RoundToInt(effect.Modifier);
@@ -130,6 +158,11 @@ public abstract partial class EntityBase : CharacterBody2D
 		if(BaseStats[Stat.CurrentHealth] <= 0) {
 			Die();
 		}
+	}
+
+	private float GetPercentageValue(Stat effectedStat, float modifier)
+	{
+		return BaseStats[effectedStat] * (modifier/100);
 	}
 
 	protected virtual void Die()

@@ -17,8 +17,9 @@ public abstract partial class Spell : Node2D
 	protected Sprite2D IconImage;
 	[Export]
 	protected int ManaCost;
-	public List<Effect> AllyEffects = new List<Effect>();
-	public List<Effect> EnemyEffects = new List<Effect>();
+	[Export]
+	public Godot.Collections.Array<EntityEffect> AllyEffects = new Godot.Collections.Array<EntityEffect>();
+	public Godot.Collections.Array<EntityEffect> EnemyEffects = new Godot.Collections.Array<EntityEffect>();
 	[Export]
 	protected EntityBase Caster;
 	protected List<EntityTag> Friendlies = [];

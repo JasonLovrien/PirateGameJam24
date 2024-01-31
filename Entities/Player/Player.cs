@@ -44,7 +44,7 @@ public partial class Player : EntityBase
 		spell.Initialize(this);
 	}
 
-	protected override void ApplyEffect(Effect effect)
+	protected override void ApplyEffect(EntityEffect effect)
 	{
 		base.ApplyEffect(effect);
 		if(effect.EffectedStat.Equals(Stat.CurrentHealth))

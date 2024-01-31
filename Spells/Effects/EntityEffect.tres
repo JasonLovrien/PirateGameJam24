@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cjechvb60jdte"]
+
+[ext_resource type="Script" path="res://Spells/EntityEffect.cs" id="1_lb6ty"]
+
+[resource]
+script = ExtResource("1_lb6ty")
+EffectedStat = 0
+Modifier = 0
+Duration = 0.0
+Instant = false
+buff = false

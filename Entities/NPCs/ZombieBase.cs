@@ -20,6 +20,7 @@ public partial class ZombieBase : EntityBase
 	
 	protected override void Initialize()
 	{
+		RallyPoint = GlobalPosition;
 		EntityType = EntityTag.Zombie;
 		InitializeWeapon();
 		deceleration = 15;

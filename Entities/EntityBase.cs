@@ -86,20 +86,20 @@ public abstract partial class EntityBase : CharacterBody2D
 		}
 	}
 
-	public virtual void ApplyEffects(List<Effect> effects)
+	public virtual void ApplyEffects(Godot.Collections.Array<EntityEffect> effects)
 	{
-		foreach(Effect effect in effects){
+		foreach(EntityEffect effect in effects){
 			ApplyEffect(effect);
 		}
 	}
 
 	//Apply Effect could be implemented here since every creature will
 	//have the same stats to effect
-	protected virtual void ApplyEffect(Effect effect)
+	protected virtual void ApplyEffect(EntityEffect effect)
 	{
 		if(effect.EffectedStat.Equals(Stat.CurrentHealth) && effect.Modifier < 0 && BaseStats[Stat.Shield] > 0 && effect.Instant)
 		{
-			BaseStats[Stat.Shield] += effect.Modifier;
+			BaseStats[Stat.Shield] += Mathf.RoundToInt(effect.Modifier);
 			if(BaseStats[Stat.Shield] < 0){
 				effect.Modifier = BaseStats[Stat.Shield];
 				BaseStats[Stat.Shield] = 0;
@@ -110,17 +110,17 @@ public abstract partial class EntityBase : CharacterBody2D
 
 		if(effect.Instant)
 		{
-			BaseStats[effect.EffectedStat] += effect.Modifier;
+			BaseStats[effect.EffectedStat] += Mathf.RoundToInt(effect.Modifier);
 		} else
 		{
-			ModifierStats[effect.EffectedStat] += effect.Modifier;
+			ModifierStats[effect.EffectedStat] += Mathf.RoundToInt(effect.Modifier);
 			Timer EffectTimer = new Timer
 			{
 				OneShot = true,
 				WaitTime = effect.Duration
 			};
 			EffectTimer.Timeout += ()=> {
-				ModifierStats[effect.EffectedStat] -= effect.Modifier;
+				ModifierStats[effect.EffectedStat] -= Mathf.RoundToInt(effect.Modifier);
 				EffectTimers.Remove(EffectTimer);
 			};
 

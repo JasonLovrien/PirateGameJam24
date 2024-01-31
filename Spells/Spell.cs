@@ -11,15 +11,22 @@ public enum SpellState
 
 public abstract partial class Spell : Node2D
 {
-	[ExportGroup("Spell Icon Properties")]
+	[ExportGroup("Spell UI Properties")]
+	[Export]
 	protected string SpellName;
 	[Export]
 	protected Sprite2D IconImage;
 	[Export]
-	protected int ManaCost;
-	public List<Effect> AllyEffects = new List<Effect>();
-	public List<Effect> EnemyEffects = new List<Effect>();
+	protected string Description;
+	[ExportGroup("Spell Effects")]
 	[Export]
+	protected int ManaCost;
+	[Export]
+	public Godot.Collections.Array<EntityEffect> AllyEffects = new Godot.Collections.Array<EntityEffect>();
+	[Export]
+	public Godot.Collections.Array<EntityEffect> EnemyEffects = new Godot.Collections.Array<EntityEffect>();
+	[Export]
+	public Godot.Collections.Array<EntityEffect> CasterEffects = new Godot.Collections.Array<EntityEffect>();
 	protected EntityBase Caster;
 	protected List<EntityTag> Friendlies = [];
 	protected List<EntityTag> Enemies = [];
@@ -33,7 +40,6 @@ public abstract partial class Spell : Node2D
 	protected float Range;
 	protected int ChargingTime;
 	protected int NumberHit;
-	public abstract void Activate();
 
 	// Called when the node enters the scene tree for the first time.
 	public void BasicInit()
@@ -77,6 +83,13 @@ public abstract partial class Spell : Node2D
 		}
 	}
 
+	public virtual void Activate()
+	{
+		if(CasterEffects.Count > 0){
+			Caster.ApplyEffects(CasterEffects);
+		}
+	}
+
 	protected virtual void OnCollisionEnter(Node2D body)
 	{
 		if(!(body is EntityBase)){
@@ -101,7 +114,8 @@ public abstract partial class Spell : Node2D
 		if(Friendlies.Contains(body.EntityType) && AllyEffects.Count > 0){
 			body.ApplyEffects(AllyEffects);
 			NumberHit += 1;
-		} else if(Enemies.Contains(body.EntityType) && EnemyEffects.Count > 0){
+		}
+		if(Enemies.Contains(body.EntityType) && EnemyEffects.Count > 0){
 			body.ApplyEffects(EnemyEffects);
 			NumberHit += 1;
 		}

@@ -30,6 +30,22 @@ public partial class Player : EntityBase
 		{
 			Attack();
 		}
+		if(@event.IsActionReleased("scroll_up"))
+		{
+			ChangeSpellIndex(1);
+		}
+		if(@event.IsActionReleased("scroll_down")){
+			ChangeSpellIndex(-1);
+		}
+	}
+
+	private void ChangeSpellIndex(int direction){
+		AbilityIndex += direction;
+		if(AbilityIndex >= AbilityList.Count){
+			AbilityIndex = 0;
+		} else if(AbilityIndex < 0) {
+			AbilityIndex = AbilityList.Count-1;
+		}
 	}
 	
 	protected override Vector2 GetNormalizedMovementDirection()
@@ -49,6 +65,7 @@ public partial class Player : EntityBase
 		base.ApplyEffect(effect);
 		if(effect.EffectedStat.Equals(Stat.CurrentHealth))
 		{
+			GD.Print("changing health values");
 			//Update this later to incorporate StatModifiers
 			_CustomEvents.EmitSignal(CustomEvents.SignalName.UpdatePlayerHealth,
 			BaseStats[Stat.MaxHealth], BaseStats[Stat.CurrentHealth]);

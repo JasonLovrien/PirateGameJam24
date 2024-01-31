@@ -6,6 +6,7 @@
 resource_local_to_scene = true
 script = ExtResource("1_um22r")
 EffectedStat = 1
+UsedStat = 1
 Modifier = -25.0
 Duration = 0.0
 Instant = true

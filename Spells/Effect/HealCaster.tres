@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Spells/EntityEffect.cs" id="1_agqtb"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_agqtb")
 EffectedStat = 1
 UsedStat = 0

@@ -9,6 +9,7 @@ public enum SpellState
 	Hit
 }
 
+[GlobalClass]
 public abstract partial class Spell : Node2D
 {
 	[ExportGroup("Spell UI Properties")]
@@ -19,6 +20,8 @@ public abstract partial class Spell : Node2D
 	[Export(PropertyHint.MultilineText)]
 	protected string Description;
 	[ExportGroup("Spell Effects")]
+	[Export]
+	protected float Cooldown;
 	[Export]
 	protected int ManaCost;
 	[Export]
@@ -35,31 +38,21 @@ public abstract partial class Spell : Node2D
 
 	protected AnimatedSprite2D SpellAnimation;
 	protected AudioStreamPlayer2D SpellAudioPlayer;
-	protected Area2D Hitbox2D;
-	protected Area2D Range2D;
-	protected float Range;
 	protected int ChargingTime;
 	protected int NumberHit;
 
 	// Called when the node enters the scene tree for the first time.
 	public void BasicInit()
 	{
-		Hitbox2D = GetNode<Area2D>("Hitbox");
-		Range2D = GetNode<Area2D>("Range");
-		SpellAnimation = Hitbox2D.GetNode<AnimatedSprite2D>("Animation");
-		SpellAudioPlayer = Hitbox2D.GetNode<AudioStreamPlayer2D>("Sound");
+		SpellAnimation = GetNode<AnimatedSprite2D>("Animation");
+		SpellAudioPlayer = GetNode<AudioStreamPlayer2D>("Sound");
 
-		Hitbox2D.BodyEntered += OnCollisionEnter;
+		SpellAnimation.AnimationFinished += OnAnimationFinished;
 		NumberHit = 0;
-
-		Range = (Range2D.GetChild<CollisionShape2D>(0).Shape as CircleShape2D).Radius
-		- Hitbox2D.GetChild<CollisionShape2D>(0).Shape.GetRect().Size.X;
 	}
 
 	public virtual void Initialize(EntityBase caster)
 	{
-		BasicInit();
-
 		Caster = caster;
 
 		switch(caster.EntityType)
@@ -90,13 +83,11 @@ public abstract partial class Spell : Node2D
 		}
 	}
 
-	protected virtual void OnCollisionEnter(Node2D body)
+	protected virtual void OnAnimationFinished()
 	{
-		if(!(body is EntityBase)){
-			return;
+		if(CurrentState.Equals(SpellState.Hit)){
+			QueueFree();
 		}
-
-		AffectEntity(body as EntityBase);
 	}
 
 	protected void PlayAudio()
@@ -104,9 +95,9 @@ public abstract partial class Spell : Node2D
 		SpellAudioPlayer.Play();
 	}
 
-	protected void PlayAnimation(SpellState State)
+	protected void PlayAnimation()
 	{
-		SpellAnimation.Play(State.ToString());
+		SpellAnimation.Play(CurrentState.ToString());
 	}
 
 	protected void AffectEntity(EntityBase body)

@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 
 public enum Stat
@@ -98,6 +99,7 @@ public abstract partial class EntityBase : CharacterBody2D
 	//have the same stats to effect
 	protected virtual void ApplyEffect(EntityEffect effect)
 	{
+		GD.Print($"applying effect. Effected stat: {effect.EffectedStat} \nModifier{effect.Modifier}");
 		if(effect.EffectedStat.Equals(Stat.CurrentHealth) && effect.Modifier < 0 && BaseStats[Stat.Shield] > 0 && effect.Instant)
 		{
 			BaseStats[Stat.Shield] += Mathf.RoundToInt(effect.Modifier);

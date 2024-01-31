@@ -39,7 +39,7 @@ height = 74.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_dayrv")
-AbilityList = Array[String](["BasicSpell"])
+AbilityList = Array[String](["BasicSpell", "HealSpell"])
 
 [node name="Animation" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.65, 0.65)
